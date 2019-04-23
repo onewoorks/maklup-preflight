@@ -75,9 +75,7 @@ export default {
     }
   },
   methods: {
-      openprint: function(){
-          window.print()
-      }
+      
   }
 };
 </script>

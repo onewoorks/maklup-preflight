@@ -93,7 +93,10 @@ export default {
         warganegara: "indonesia",
         status_pembayaran: "jelas"
       };
-    }
+    },
+    openprint: function(){
+          window.print()
+      }
   }
 };
 </script>
