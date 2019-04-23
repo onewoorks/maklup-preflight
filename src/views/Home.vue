@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-5 no-print">
-        <ScanPemohon @passPemohon="terimaPemohon"/>
+      <div class="col-4 no-print scan-area">
+        <ScanPemohon @passPemohon="terimaPemohon" />
       </div>
-      <div class="col">
+      <div class="col list-area">
         <ListPreflight :listpemohon="listpemohon"/>
       </div>
     </div>
@@ -12,12 +12,31 @@
 </template>
 
 <style>
+body {
+  background-color: #fbfbfa
+}
+.scan-area {
+  height: 100%;
+  width: 40%;
+  position:fixed;
+}
+
+.list-area {
+  margin-left: 33.5%;
+  -webkit-box-shadow: -0px 0 10px 1px rgba(0,0,0,0.1);
+box-shadow: -0px 0 10px 1px rgba(0,0,0,0.1);
+}
+
 @media print {
   .no-print {
     display: none;
   }
+  .list-area {
+    margin-left:0
+  }
   table {
     width: 100%;
+    font-size:0.7rem
   }
   .col-sm-7 {
     width:100%

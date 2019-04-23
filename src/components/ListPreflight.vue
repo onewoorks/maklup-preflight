@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div>
-      <h1>Senarai Preflight</h1>
-      <h4>flight # : 12312</h4>
+    <div class="mt-3 mb-4">
+      <h1 class="text-uppercase"><strong>Senarai Preflight</strong></h1>
+      <ul class="list-inline">
+          <li class="list-inline-item">Tarikh Temujanji : 23 April 2019 </li>
+          <li class="list-inline-item">|</li>
+          <li class="list-inline-item">FlightBlock : 201905001 </li>
+          </ul>
     </div>
     <table class="table table-bordered text-uppercase" style='width:100%'>
       <thead>
@@ -31,9 +35,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="text-right mb-5">
-      <div class="btn btn-success no-print" @click="openprint">Cetak Senarai</div>
-    </div>
+    
   </div>
 </template>
 

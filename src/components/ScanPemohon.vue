@@ -43,9 +43,27 @@
           </div>
         </div>
       </div>
+      
     </div>
+
+    <div class="footer-area mb-3">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="btn btn-success btn-block no-print" @click="openprint">Cetak Senarai</div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
+
+<style>
+.footer-area {
+  position: absolute;
+  bottom: 0;
+  width:94%;
+}
+</style>
+
 
 <script>
 export default {
