@@ -30,23 +30,23 @@
             <tbody>
               <tr>
                 <td class="text-left">Nama</td>
-                <td>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nama : '' }}</td>
+                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nama : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">Jenis Dokumen</td>
-                <td>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.jenis_dokumen_perjalanan : '' }}</td>
+                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.jenis_dokumen_perjalanan : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">No Dokumen</td>
-                <td>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nombor : '' }}</td>
+                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nombor : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">WarganaNegara</td>
-                <td>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.warganegara : '' }}</td>
+                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.warganegara : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">Status Pembayaran</td>
-                <td>{{ (Object.keys(pemohon).length > 0) ? pemohon.payment.status : '' }}</td>
+                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.payment.status : '' }}</td>
               </tr>
               <tr><td colspan="2"></td></tr>
             </tbody>
@@ -113,13 +113,14 @@ export default {
       this.pemohon = {}
       this.passButton = 'd-none'
       this.warning.status = true
+      this.scanned_data = ""
     },
     openprint: function() {
       window.print();
     },
     cariDataBarcode: function(){
       Axios.get(
-        "https://api-ls.onewoorks-solutions.com/pulkam/register/info?regid=860636397&tempid=161034466"
+        "https://api-ls.onewoorks-solutions.com/pulkam/register/info-temp-id?tempid=" + this.scanned_data
       ).then(response => {
         let resp = response.data.response
         if(resp.data_pemohon != null){
