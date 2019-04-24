@@ -5,7 +5,7 @@
         <ScanPemohon @passPemohon="terimaPemohon" />
       </div>
       <div class="col list-area">
-        <ListPreflight :listpemohon="listpemohon"/>
+        <ListPreflight :listpemohon="listpemohon" />
       </div>
     </div>
   </div>
@@ -13,18 +13,18 @@
 
 <style>
 body {
-  background-color: #fbfbfa
+  background-color: #fbfbfa;
 }
 .scan-area {
   height: 100%;
   width: 40%;
-  position:fixed;
+  position: fixed;
 }
 
 .list-area {
   margin-left: 33.5%;
-  -webkit-box-shadow: -0px 0 10px 1px rgba(0,0,0,0.1);
-box-shadow: -0px 0 10px 1px rgba(0,0,0,0.1);
+  -webkit-box-shadow: -0px 0 10px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: -0px 0 10px 1px rgba(0, 0, 0, 0.1);
 }
 
 @media print {
@@ -32,18 +32,17 @@ box-shadow: -0px 0 10px 1px rgba(0,0,0,0.1);
     display: none;
   }
   .list-area {
-    margin-left:0
+    margin-left: 0;
   }
   table {
     width: 100%;
-    font-size:0.7rem
+    font-size: 0.7rem;
   }
   .col-sm-7 {
-    width:100%
+    width: 100%;
   }
 }
 </style>
-
 
 <script>
 import ScanPemohon from "@/components/ScanPemohon";
