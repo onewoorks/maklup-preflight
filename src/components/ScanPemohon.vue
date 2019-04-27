@@ -1,18 +1,22 @@
 <template>
   <div>
     <div class="row papar-counter d-none">
-      <div class="col text-white papar-counter">
-         0 / 50
-      </div>
-      
+      <div class="col text-white papar-counter">0 / 50</div>
     </div>
     <div class="mt-3 mb-3">
       <form @submit.prevent="cariDataBarcode">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" class="form-control text-center" v-model="scanned_data" placeholder="barcode pemohon"/>
+            <input
+              type="text"
+              class="form-control text-center"
+              v-model="scanned_data"
+              placeholder="barcode pemohon"
+            >
             <div class="input-group-append">
-              <button type="submit" class="btn btn-primary"><i class="fas fa-angle-right"></i></button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-angle-right"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -30,31 +34,45 @@
             <tbody>
               <tr>
                 <td class="text-left">Nama</td>
-                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nama : '' }}</td>
+                <td
+                  class="text-uppercase"
+                >{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nama : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">Jenis Dokumen</td>
-                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.jenis_dokumen_perjalanan : '' }}</td>
+                <td
+                  class="text-uppercase"
+                >{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.jenis_dokumen_perjalanan : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">No Dokumen</td>
-                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nombor : '' }}</td>
+                <td
+                  class="text-uppercase"
+                >{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.nombor : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">WarganaNegara</td>
-                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.warganegara : '' }}</td>
+                <td
+                  class="text-uppercase"
+                >{{ (Object.keys(pemohon).length > 0) ? pemohon.data_pemohon.warganegara : '' }}</td>
               </tr>
               <tr>
                 <td class="text-left">Status Pembayaran</td>
-                <td class='text-uppercase'>{{ (Object.keys(pemohon).length > 0) ? pemohon.payment.status : '' }}</td>
+                <td
+                  class="text-uppercase"
+                >{{ (Object.keys(pemohon).length > 0) ? pemohon.payment.status : '' }}</td>
               </tr>
-              <tr><td colspan="2"></td></tr>
+              <tr>
+                <td colspan="2"></td>
+              </tr>
             </tbody>
           </table>
           <div class="text-right">
-            <div class="btn btn-primary" :class="passButton" @click="hantarMaklumat">
-              Masukkan Dalam Senarai
-            </div>
+            <div
+              class="btn btn-primary"
+              :class="passButton"
+              @click="hantarMaklumat"
+            >Masukkan Dalam Senarai</div>
           </div>
         </div>
       </div>
@@ -74,7 +92,7 @@
 
 <style>
 .papar-counter {
-  font-size:2.3rem;
+  font-size: 2.3rem;
   background-color: #ff443a;
   font-weight: bold;
 }
@@ -86,51 +104,74 @@
 </style>
 
 <script>
-import Axios from 'axios'
+import Axios from "axios";
 
 export default {
   name: "scan_pemohon",
+  props: {
+    listpemohon: Object,
+    status: Object
+  },
   data: function() {
     return {
       warning: {
         status: true,
         message: "Sila masukkan barcode pemohon",
-        class: 'alert-info'
+        class: "alert-info"
       },
-      passButton: 'd-none',
+      passButton: "d-none",
       scanned_data: "",
       pemohon: {}
     };
   },
   watch: {
-    pemohon: function(){
-      console.log(this.pemohon)
-    }
+    pemohon: function() {},
+    status: function(){
+      let btn_type = 'alert-info'
+      switch(this.status.status){
+        case 'error':
+          btn_type = 'alert-danger'
+          break;
+          case 'success':
+          btn_type = 'alert-success'
+          break
+      }
+      this.warning = {
+        status: true,
+        message: this.status.message,
+        class: btn_type
+      }
+    }  
   },
   methods: {
     hantarMaklumat: function() {
       this.$emit("passPemohon", this.pemohon);
-      this.pemohon = {}
-      this.passButton = 'd-none'
-      this.warning.status = true
-      this.scanned_data = ""
+      this.pemohon = {};
+      this.passButton = "d-none";
+      this.warning.status = true;
+      this.scanned_data = "";
     },
     openprint: function() {
       window.print();
     },
-    cariDataBarcode: function(){
+    cariDataBarcode: function() {
       Axios.get(
-        "https://api-ls.onewoorks-solutions.com/pulkam/register/info-temp-id?tempid=" + this.scanned_data
+        process.env.VUE_APP_PULKAM_API + "register/info-temp-id?tempid=" +
+          this.scanned_data
       ).then(response => {
-        let resp = response.data.response
-        if(resp.data_pemohon != null){
-           this.pemohon = resp
-           this.passButton = ''
-           this.warning.status = false
+        let resp = response.data.response;
+        if (resp.data_pemohon != null) {
+          this.pemohon = resp;
+          this.passButton = "";
+          this.warning.status = false;
         } else {
-          console.log('takda data')
+          this.warning = {
+            status: true,
+            message: "Maklumat pemohon tidak dijumpai",
+            class: "alert-info"
+          }
         }
-      })
+      });
     }
   }
 };

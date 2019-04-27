@@ -2,10 +2,10 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-4 no-print scan-area">
-        <ScanPemohon @passPemohon="terimaPemohon" />
+        <ScanPemohon @passPemohon="terimaPemohon" :listpemohon="listpemohon" :status="crewStatus"/>
       </div>
       <div class="col list-area">
-        <ListPreflight :listpemohon="listpemohon" />
+        <ListPreflight @addstatus="statusReceived" :listpemohon="listpemohon" />
       </div>
     </div>
   </div>
@@ -56,12 +56,16 @@ export default {
   },
   data: function() {
     return {
-      listpemohon: {}
+      listpemohon: {},
+      crewStatus: {}
     };
   },
   methods: {
     terimaPemohon: function(value) {
       this.listpemohon = value;
+    },
+    statusReceived: function(value){
+      this.crewStatus = value
     }
   }
 };
