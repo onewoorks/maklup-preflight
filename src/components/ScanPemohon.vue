@@ -79,7 +79,7 @@
     </div>
 
     <div class="footer-area mb-3">
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-sm-12">
           <div class="btn btn-success btn-block no-print text-uppercase" @click="openprint">
             <i class="fas fa-print"></i> Cetak Senarai
